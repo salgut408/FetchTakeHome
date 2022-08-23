@@ -46,6 +46,8 @@ class HomeListFragment : Fragment() {
 
         setUpRecyclerView()
 
+        homeListViewModel.getInforForDb()
+
         homeListViewModel.informationList.observe(viewLifecycleOwner,
         Observer<List<JsonResponseModel>>{item ->
             item.apply{ itemListAdapter.differ.submitList(item) }

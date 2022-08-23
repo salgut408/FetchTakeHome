@@ -25,7 +25,15 @@ class HomeListViewModel
     }
 
     fun getInfo() = viewModelScope.launch {
-         val result = repository.getListOfItems()
+//         val result = repository.getListOfItems()
+//        val result = repository.getSortedList()
+//        val result = repository.getSortedListExNulls()
+        val result = repository.getSortedListExNullsExBlanks()
+        result.sortedByDescending { mod->
+            mod.id
+        }
+
+
         _informationList.postValue(result)
     }
 
