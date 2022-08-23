@@ -5,10 +5,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android.fetchtakehomeapp.R
+import com.example.android.fetchtakehomeapp.databinding.FragmentHomeListBinding
+import com.example.android.fetchtakehomeapp.domain.JsonResponseModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeListFragment : Fragment() {
 
+    lateinit var binding: FragmentHomeListBinding
+
+
+    val homeListViewModel: HomeListViewModel by viewModels()
+
+
+    lateinit var itemListAdapter: ListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,8 +34,31 @@ class HomeListFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home_list, container, false)
+        binding = FragmentHomeListBinding.inflate(inflater)
+
+        homeListViewModel.getInfo()
+
+        return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setUpRecyclerView()
+
+        homeListViewModel.informationList.observe(viewLifecycleOwner,
+        Observer<List<JsonResponseModel>>{item ->
+            item.apply{ itemListAdapter.differ.submitList(item) }
+        })
+
+    }
+
+    private fun setUpRecyclerView() {
+        itemListAdapter = ListAdapter()
+        binding.recView.apply{
+            adapter = itemListAdapter
+            layoutManager = LinearLayoutManager(this.context)
+        }
+    }
 
 }
