@@ -8,6 +8,8 @@ import com.example.android.fetchtakehomeapp.domain.JsonResponseModel
 import com.example.android.fetchtakehomeapp.models.JsonResponse
 import com.example.android.fetchtakehomeapp.models.JsonResponseDtoMapper
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -35,6 +37,20 @@ suspend fun getSortedList(): List<JsonResponseModel> {
     suspend fun getSortedListExNullsExBlanks(): List<JsonResponseModel> {
         val result = itemDatabase.getDao().getInfoSortByListIdExNullsExBlanks()
         return result
+    }
+
+//    val items: Flow<List<JsonResponseModel>> = flow {
+//        while (true) {
+//            var items = api.getFetchInformation().body()!!
+//            emit(jsonResponseDtoMapper.toDomainList(items))
+//        }
+//    }
+
+    val items: Flow<List<JsonResponseModel>> = flow {
+        while (true) {
+            var items = itemDatabase.getDao().getInfoSortByListIdExNullsExBlanks()
+            emit(items)
+        }
     }
 
     suspend fun getInfoForDatabase() {
