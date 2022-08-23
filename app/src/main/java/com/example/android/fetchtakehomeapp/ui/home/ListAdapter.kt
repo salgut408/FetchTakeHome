@@ -45,6 +45,8 @@ class ListAdapter(): RecyclerView.Adapter<ListAdapter.ItemViewHolder>() {
         val item = differ.currentList[position]
         holder.binding.apply {
             itemId.text = item.id.toString()
+            itemName.text = item.name
+            listId.text = item.listId.toString()
         }
     }
 
