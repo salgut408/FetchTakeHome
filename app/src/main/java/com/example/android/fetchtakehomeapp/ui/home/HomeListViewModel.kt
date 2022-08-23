@@ -21,11 +21,16 @@ class HomeListViewModel
 
     init {
         getInfo()
+        getInforForDb()
     }
 
     fun getInfo() = viewModelScope.launch {
          val result = repository.getListOfItems()
         _informationList.postValue(result)
+    }
+
+    fun getInforForDb() = viewModelScope.launch {
+        repository.getInfoForDatabase()
     }
 
 }
