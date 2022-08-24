@@ -39,12 +39,7 @@ suspend fun getSortedList(): List<JsonResponseModel> {
         return result
     }
 
-//    val items: Flow<List<JsonResponseModel>> = flow {
-//        while (true) {
-//            var items = api.getFetchInformation().body()!!
-//            emit(jsonResponseDtoMapper.toDomainList(items))
-//        }
-//    }
+
 
     val items: Flow<List<JsonResponseModel>> = flow {
         while (true) {
