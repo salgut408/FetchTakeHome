@@ -25,22 +25,17 @@ class HomeListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentHomeListBinding.inflate(inflater)
-
         homeListViewModel.getInfo()
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setUpRecyclerView()
-
         homeListViewModel.getInforForDb()
-
         homeListViewModel.informationList.observe(viewLifecycleOwner) { item ->
             item.apply { itemListAdapter.differ.submitList(item) }
         }
@@ -49,7 +44,7 @@ class HomeListFragment : Fragment() {
 
     private fun setUpRecyclerView() {
         itemListAdapter = ListAdapter()
-        binding.recView.apply{
+        binding.recView.apply {
             adapter = itemListAdapter
             layoutManager = LinearLayoutManager(this.context)
         }

@@ -8,22 +8,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.android.fetchtakehomeapp.databinding.SingleItemBinding
 import com.example.android.fetchtakehomeapp.domain.JsonResponseModel
 
-class ListAdapter(): RecyclerView.Adapter<ListAdapter.ItemViewHolder>() {
+class ListAdapter() : RecyclerView.Adapter<ListAdapter.ItemViewHolder>() {
 
     inner class ItemViewHolder(val binding: SingleItemBinding) :
-            RecyclerView.ViewHolder(binding.root)
+        RecyclerView.ViewHolder(binding.root)
 
     private val differCallback = object : DiffUtil.ItemCallback<JsonResponseModel>() {
         override fun areItemsTheSame(
             oldItem: JsonResponseModel,
-            newItem: JsonResponseModel
+            newItem: JsonResponseModel,
         ): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
             oldItem: JsonResponseModel,
-            newItem: JsonResponseModel
+            newItem: JsonResponseModel,
         ): Boolean {
             return oldItem == newItem
         }
@@ -54,8 +54,5 @@ class ListAdapter(): RecyclerView.Adapter<ListAdapter.ItemViewHolder>() {
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
-
-
-
 
 }

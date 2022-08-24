@@ -14,7 +14,7 @@ import javax.inject.Inject
 class HomeListViewModel
 @Inject constructor(
     val repository: ItemRepository,
-): ViewModel() {
+) : ViewModel() {
 
     private val _informationList: MutableLiveData<List<JsonResponseModel>> = MutableLiveData()
     val informationList: LiveData<List<JsonResponseModel>> get() = _informationList
@@ -25,15 +25,14 @@ class HomeListViewModel
 
     fun getInfo() = viewModelScope.launch {
         val result = repository.getSortedListExNullsExBlanks()
-        result.sortedByDescending { model->
+        result.sortedByDescending { model ->
             model.id
         }
-
         _informationList.postValue(result)
     }
 
     fun getFlowItem() = viewModelScope.launch {
-        repository.items.collect {items ->
+        repository.items.collect { items ->
             _informationList.postValue(items)
         }
     }
@@ -41,5 +40,4 @@ class HomeListViewModel
     fun getInforForDb() = viewModelScope.launch {
         repository.getInfoForDatabase()
     }
-
 }

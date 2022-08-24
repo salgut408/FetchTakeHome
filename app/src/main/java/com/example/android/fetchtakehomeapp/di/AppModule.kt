@@ -32,7 +32,7 @@ object AppModule {
     fun provideItemDatabase(@ApplicationContext context: Context): ItemDatabase =
         Room.databaseBuilder(
             context,
-            ItemDatabase:: class.java,
+            ItemDatabase::class.java,
             "database"
         ).build()
 
@@ -41,9 +41,7 @@ object AppModule {
         jsonResponseDtoMapper: JsonResponseDtoMapper,
         dao: ItemDao,
         api: FetchApi,
-        @ApplicationContext context: Context
-
-    ): ItemRepository = ItemRepository(
+        ): ItemRepository = ItemRepository(
         jsonResponseDtoMapper,
         dao,
         api

@@ -17,7 +17,7 @@ import javax.inject.Inject
 class ItemRepository @Inject constructor(
     val jsonResponseDtoMapper: JsonResponseDtoMapper,
     val dao: ItemDao,
-    val api: FetchApi
+    val api: FetchApi,
 ) {
 
     suspend fun getSortedListExNullsExBlanks(): List<JsonResponseModel> {
@@ -37,10 +37,10 @@ class ItemRepository @Inject constructor(
             try {
                 val items = api.getFetchInformation().body()!!
                 val items2 = jsonResponseDtoMapper.toDomainList(items)
-                for (i in items2){
+                for (i in items2) {
                     dao.update(i)
                 }
-            } catch (err :Exception) {
+            } catch (err: Exception) {
                 Log.i("Tag", "Failed")
             }
         }
