@@ -27,7 +27,7 @@ class ItemRepository @Inject constructor(
 
     val items: Flow<List<JsonResponseModel>> = flow {
         while (true) {
-            var items = dao.getInfoSortByListIdExNullsExBlanks()
+            val items = dao.getInfoSortByListIdExNullsExBlanks()
             emit(items)
         }
     }
