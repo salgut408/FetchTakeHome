@@ -18,16 +18,9 @@ class HomeListFragment : Fragment() {
 
     lateinit var binding: FragmentHomeListBinding
 
-
-    val homeListViewModel: HomeListViewModel by viewModels()
-
+    private val homeListViewModel: HomeListViewModel by viewModels()
 
     lateinit var itemListAdapter: ListAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,10 +41,9 @@ class HomeListFragment : Fragment() {
 
         homeListViewModel.getInforForDb()
 
-        homeListViewModel.informationList.observe(viewLifecycleOwner,
-        Observer<List<JsonResponseModel>>{item ->
-            item.apply{ itemListAdapter.differ.submitList(item) }
-        })
+        homeListViewModel.informationList.observe(viewLifecycleOwner) { item ->
+            item.apply { itemListAdapter.differ.submitList(item) }
+        }
 
     }
 

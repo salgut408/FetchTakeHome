@@ -39,15 +39,14 @@ object AppModule {
     @Provides
     fun provideItemRepository(
         jsonResponseDtoMapper: JsonResponseDtoMapper,
-        itemDatabase: ItemDatabase,
+        dao: ItemDao,
         api: FetchApi,
         @ApplicationContext context: Context
 
     ): ItemRepository = ItemRepository(
         jsonResponseDtoMapper,
-        itemDatabase,
-        api,
-        context
+        dao,
+        api
     )
 
     @Singleton

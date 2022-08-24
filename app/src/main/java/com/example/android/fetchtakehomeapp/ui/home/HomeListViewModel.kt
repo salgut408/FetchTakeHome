@@ -20,17 +20,14 @@ class HomeListViewModel
     val informationList: LiveData<List<JsonResponseModel>> get() = _informationList
 
     init {
-        getInfo()
         getInforForDb()
     }
 
     fun getInfo() = viewModelScope.launch {
-
         val result = repository.getSortedListExNullsExBlanks()
         result.sortedByDescending { mod->
             mod.id
         }
-
 
         _informationList.postValue(result)
     }
