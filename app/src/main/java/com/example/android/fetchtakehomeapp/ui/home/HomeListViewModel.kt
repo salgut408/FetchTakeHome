@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.android.fetchtakehomeapp.domain.JsonResponseModel
 import com.example.android.fetchtakehomeapp.repository.ItemRepository
+import com.example.android.fetchtakehomeapp.util.ItemComparator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,10 +26,8 @@ class HomeListViewModel
 
     fun getInfo() = viewModelScope.launch {
         val result = repository.getSortedListExNullsExBlanks()
-        result.sortedByDescending { model ->
-            model.id
-        }
-        _informationList.postValue(result)
+         result.sortedWith(ItemComparator)
+         _informationList.postValue(result)
     }
 
     fun getFlowItem() = viewModelScope.launch {
